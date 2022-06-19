@@ -31,11 +31,18 @@ export class ActivityController {
     }
 
     //@Auth([RoleType.USER])
-    @Get('clientId')
-    findAll(@Query('clientId') id: string) {
-        return this.activityService.findAll(id);
+    @Get('activity/clientId')
+    dumpActivities(@Query('clientId') id: string) {
+        return this.activityService.dumpActivities(id);
     }
-
+    @Get('like/clientId')
+    dumpLikes(@Query('clientId') id: string) {
+        return this.activityService.dumpLikes(id);
+    }
+    @Get('comment/clientId')
+    dumpComments(@Query('clientId') id: string) {
+        return this.activityService.dumpComments(id);
+    }
     // @Get(':id')
     // findOne(@Param('id') id: string) {
     //     return this.activityService.findOne(+id);

@@ -43,7 +43,7 @@ export class ActivityService {
         return activity;
     }
 
-    async findAll(clientId: string) {
+    async dumpActivities(clientId: string) {
         const stream = fs.createReadStream(
             __dirname + '/../../../src/database/init/vibes.csv',
         );
@@ -61,11 +61,18 @@ export class ActivityService {
                     .slice(2, activity.media.length - 3)
                     .split(','));
 
-            const _activity = this.activityRepository.create(activity);
+            try {
+                const _activity = this.activityRepository.create(activity);
 
-            await this.activityRepository.save(_activity);
+                await this.activityRepository.save(_activity);
+            } catch (error) {
+                console.log(error);
+            }
         });
 
+        return `This action returns initiates database`;
+    }
+    async dumpLikes(clientId: string) {
         const likeStream = fs.createReadStream(
             __dirname + '/../../../src/database/init/likes.csv',
         );
@@ -81,11 +88,19 @@ export class ActivityService {
                 (engagement.verb = 'like'),
                 (engagement.score = 0.2);
 
-            const _engagement = this.engagementRepository.create(engagement);
+            try {
+                const _engagement =
+                    this.engagementRepository.create(engagement);
 
-            await this.engagementRepository.save(_engagement);
+                await this.engagementRepository.save(_engagement);
+            } catch (error) {
+                console.log(error);
+            }
         });
 
+        return `This action returns initiates database`;
+    }
+    async dumpComments(clientId: string) {
         const commentStream = fs.createReadStream(
             __dirname + '/../../../src/database/init/comments.csv',
         );
@@ -101,9 +116,14 @@ export class ActivityService {
             (engagement.client_id = clientId),
                 (engagement.score = 0.1),
                 (engagement.verb = 'comment');
-            const _engagement = this.engagementRepository.create(engagement);
+            try {
+                const _engagement =
+                    this.engagementRepository.create(engagement);
 
-            await this.engagementRepository.save(_engagement);
+                await this.engagementRepository.save(_engagement);
+            } catch (error) {
+                console.log(error);
+            }
         });
 
         return `This action returns initiates database`;
