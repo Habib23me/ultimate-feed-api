@@ -7,6 +7,7 @@ import {
     Param,
     Delete,
     Headers,
+    Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { RoleType } from 'constants/index';
@@ -30,10 +31,10 @@ export class ActivityController {
     }
 
     //@Auth([RoleType.USER])
-    // @Get()
-    // findAll() {
-    //     return this.activityService.findAll();
-    // }
+    @Get('clientId')
+    findAll(@Query('clientId') id: string) {
+        return this.activityService.findAll(id);
+    }
 
     // @Get(':id')
     // findOne(@Param('id') id: string) {
