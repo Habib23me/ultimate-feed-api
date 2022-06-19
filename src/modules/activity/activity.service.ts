@@ -44,47 +44,47 @@ export class ActivityService {
     }
 
     async findAll(clientId: string) {
-        // const stream = fs.createReadStream(
-        //     __dirname + '/../../../src/database/init/vibes.csv',
-        // );
-        // const activities = await this.csvParser.parse(
-        //     stream,
-        //     CreateActivityDto,
-        //     undefined,
-        //     undefined,
-        //     { strict: true, separator: ',' },
-        // );
-        // activities.list.forEach(async (activity: CreateActivityDto) => {
-        //     (activity.client_id = clientId),
-        //         (activity.media = activity.media
-        //             ?.toString()
-        //             .slice(2, activity.media.length - 3)
-        //             .split(','));
+        const stream = fs.createReadStream(
+            __dirname + '/../../../src/database/init/vibes.csv',
+        );
+        const activities = await this.csvParser.parse(
+            stream,
+            CreateActivityDto,
+            undefined,
+            undefined,
+            { strict: true, separator: ',' },
+        );
+        activities.list.forEach(async (activity: CreateActivityDto) => {
+            (activity.client_id = clientId),
+                (activity.media = activity.media
+                    ?.toString()
+                    .slice(2, activity.media.length - 3)
+                    .split(','));
 
-        //     const _activity = this.activityRepository.create(activity);
+            const _activity = this.activityRepository.create(activity);
 
-        //     await this.activityRepository.save(_activity);
-        // });
+            await this.activityRepository.save(_activity);
+        });
 
-        // const likeStream = fs.createReadStream(
-        //     __dirname + '/../../../src/database/init/likes.csv',
-        // );
-        // const likes = await this.csvParser.parse(
-        //     likeStream,
-        //     CreateEngagementDto,
-        //     undefined,
-        //     undefined,
-        //     { strict: true, separator: ',' },
-        // );
-        // likes.list.forEach(async (engagement: CreateEngagementDto) => {
-        //     (engagement.client_id = clientId),
-        //         (engagement.verb = 'like'),
-        //         (engagement.score = 0.2);
+        const likeStream = fs.createReadStream(
+            __dirname + '/../../../src/database/init/likes.csv',
+        );
+        const likes = await this.csvParser.parse(
+            likeStream,
+            CreateEngagementDto,
+            undefined,
+            undefined,
+            { strict: true, separator: ',' },
+        );
+        likes.list.forEach(async (engagement: CreateEngagementDto) => {
+            (engagement.client_id = clientId),
+                (engagement.verb = 'like'),
+                (engagement.score = 0.2);
 
-        //     const _engagement = this.engagementRepository.create(engagement);
+            const _engagement = this.engagementRepository.create(engagement);
 
-        //     await this.engagementRepository.save(_engagement);
-        // });
+            await this.engagementRepository.save(_engagement);
+        });
 
         const commentStream = fs.createReadStream(
             __dirname + '/../../../src/database/init/comments.csv',
