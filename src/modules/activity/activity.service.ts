@@ -55,13 +55,13 @@ export class ActivityService {
             { strict: true, separator: ',' },
         );
         activities.list.forEach(async (activity: CreateActivityDto) => {
-            (activity.client_id = clientId),
-                (activity.media = activity.media
-                    ?.toString()
-                    .slice(2, activity.media.length - 3)
-                    .split(','));
-
             try {
+                (activity.client_id = clientId),
+                    (activity.media = activity.media
+                        ?.toString()
+                        .slice(2, activity.media.length - 3)
+                        .split(','));
+
                 const _activity = this.activityRepository.create(activity);
 
                 await this.activityRepository.save(_activity);
@@ -84,11 +84,11 @@ export class ActivityService {
             { strict: true, separator: ',' },
         );
         likes.list.forEach(async (engagement: CreateEngagementDto) => {
-            (engagement.client_id = clientId),
-                (engagement.verb = 'like'),
-                (engagement.score = 0.2);
-
             try {
+                (engagement.client_id = clientId),
+                    (engagement.verb = 'like'),
+                    (engagement.score = 0.2);
+
                 const _engagement =
                     this.engagementRepository.create(engagement);
 
@@ -113,10 +113,10 @@ export class ActivityService {
         );
         console.log(comments.list);
         comments.list.forEach(async (engagement: CreateEngagementDto) => {
-            (engagement.client_id = clientId),
-                (engagement.score = 0.1),
-                (engagement.verb = 'comment');
             try {
+                (engagement.client_id = clientId),
+                    (engagement.score = 0.1),
+                    (engagement.verb = 'comment');
                 const _engagement =
                     this.engagementRepository.create(engagement);
 
